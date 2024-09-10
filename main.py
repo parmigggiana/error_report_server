@@ -7,7 +7,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 files_dir = "received_files"
-content_type = "peracotta/error-log"
 
 try:
     os.mkdir(files_dir)
@@ -17,10 +16,8 @@ except FileExistsError:
 app = FastAPI()
 
 
-@app.put("/")
-async def put_handler(file: UploadFile = File(...)):
-    if file.content_type != content_type:
-        return
+@app.post("/")
+async def post_handler(file: UploadFile):
     contents = await file.read()
     with open(f"{files_dir}/{int(time.time())}_{uuid.uuid4()}", "bw") as fs:
         fs.write(contents)
