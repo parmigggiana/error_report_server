@@ -34,7 +34,7 @@ async def index(request: Request):
         file: {
             "timestamp": datetime.datetime.fromtimestamp(
                 int(file.split("_")[0])
-            ).strftime("%H:%M - %d %B %Y"),
+            ).strftime("%d %B %Y - %H:%M"),
             "data": None,
         }
         for file in os.listdir(files_dir)
@@ -52,7 +52,7 @@ async def get_files(request: Request, name: str = None):
         file: {
             "timestamp": datetime.datetime.fromtimestamp(
                 int(file.split("_")[0])
-            ).strftime("%H:%M - %d %B %Y"),
+            ).strftime("%d %B %Y - %H:%M"),
             "data": open(os.path.join(files_dir, file)).read(),
         }
         for file in os.listdir(files_dir)
