@@ -27,6 +27,10 @@ async def post_handler(file: UploadFile):
 
 templates = Jinja2Templates(directory="templates")
 
+@app.delete("/{name}")
+async def delete_file(request: Request, name: str):
+    os.remove(os.path.join(files_dir, name))
+
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
